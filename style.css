@@ -1,0 +1,26 @@
+body {
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: dimgray;
+  font-family: "Courier New", Courier, monospace;
+}
+canvas {
+  box-shadow: rgb(99, 97, 97) 5px 4px 10px;
+  background-color: black;
+}
+
+h3 {
+  color: whitesmoke;
+  font-size: 20px;
+}
+
+#restart {
+  margin-top: 10px;
+  width: 100px;
+  height: 40px;
+}
