@@ -11,7 +11,7 @@ const gameSpeed = 0.07; // lower value = more speed
 
 const inputBuffer: string[] = [];
 
-let score = 0;
+let score: number = 0;
 
 let food = {
   x: 0,
@@ -111,7 +111,8 @@ function update() {
   snake.unshift(head);
 
   if (head.x === food.x && head.y === food.y) {
-    updateScore((score += 10));
+    score += 10;
+    updateScore();
     positionFood();
   } else {
     snake.pop();
@@ -176,8 +177,7 @@ window.addEventListener("keydown", function onKeyDown(event) {
   }
 });
 
-function updateScore(newScore: number) {
-  score = newScore;
+function updateScore() {
   scoreElement.innerHTML = score.toString();
 }
 const restartButton = document.getElementById("restart") as HTMLButtonElement;
@@ -188,5 +188,6 @@ restartButton.onclick = () => {
   positionFood();
   dx = 10;
   dy = 0;
-  updateScore(0);
+  score = 0;
+  updateScore();
 };
