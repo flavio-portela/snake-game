@@ -7,7 +7,7 @@ const canvasHeight = canvas.height;
 
 const boxSize = 10;
 
-const gameSpeed = 0.1; // lower value = more speed
+const gameSpeed = 0.07; // lower value = more speed
 
 const inputBuffer = [];
 
@@ -23,7 +23,6 @@ const initialSnake = [
   { x: Math.floor(canvasWidth / 2) - 40, y: Math.floor(canvasHeight / 2) },
   { x: Math.floor(canvasWidth / 2) - 50, y: Math.floor(canvasHeight / 2) },
   { x: Math.floor(canvasWidth / 2) - 60, y: Math.floor(canvasHeight / 2) },
-  { x: Math.floor(canvasWidth / 2) - 70, y: Math.floor(canvasHeight / 2) },
 ];
 
 // Set up the snake and score
@@ -56,20 +55,19 @@ function update() {
     }
   }
 
-  let head = {
+  const head = {
     x: snake[0].x + dx,
     y: snake[0].y + dy,
   };
 
   // Check for collision with self
-  const collapsed =
+  const collapsedWithSelf =
     snake.length > 1 &&
-    !isGameOver &&
     snake.find((p) => {
       return p.x === head.x && p.y === head.y;
     });
 
-  if (collapsed) {
+  if (collapsedWithSelf) {
     dx = 0;
     dy = 0;
     isGameOver = true;
