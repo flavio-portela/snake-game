@@ -7,7 +7,9 @@ const canvasHeight = canvas.height;
 
 const boxSize = 10;
 
-const gameSpeed = 0.06; // lower value = more speed
+const gameSpeed = 0.1; // lower value = more speed
+
+const inputBuffer = [];
 
 let score = 0;
 
@@ -18,6 +20,10 @@ const initialSnake = [
   { x: Math.floor(canvasWidth / 2) - 10, y: Math.floor(canvasHeight / 2) },
   { x: Math.floor(canvasWidth / 2) - 20, y: Math.floor(canvasHeight / 2) },
   { x: Math.floor(canvasWidth / 2) - 30, y: Math.floor(canvasHeight / 2) },
+  { x: Math.floor(canvasWidth / 2) - 40, y: Math.floor(canvasHeight / 2) },
+  { x: Math.floor(canvasWidth / 2) - 50, y: Math.floor(canvasHeight / 2) },
+  { x: Math.floor(canvasWidth / 2) - 60, y: Math.floor(canvasHeight / 2) },
+  { x: Math.floor(canvasWidth / 2) - 70, y: Math.floor(canvasHeight / 2) },
 ];
 
 // Set up the snake and score
@@ -32,6 +38,24 @@ let dy = 0;
 let isGameOver = false;
 
 function update() {
+  if (inputBuffer.length > 0) {
+    const key = inputBuffer.shift(); // get the first input
+    // Update direction based on key, but prevent opposite directions
+    if (key === "ArrowUp" && dy !== boxSize) {
+      dx = 0;
+      dy = -boxSize;
+    } else if (key === "ArrowDown" && dy !== -boxSize) {
+      dx = 0;
+      dy = boxSize;
+    } else if (key === "ArrowLeft" && dx !== boxSize) {
+      dx = -boxSize;
+      dy = 0;
+    } else if (key === "ArrowRight" && dx !== -boxSize) {
+      dx = boxSize;
+      dy = 0;
+    }
+  }
+
   let head = {
     x: snake[0].x + dx,
     y: snake[0].y + dy,
@@ -48,8 +72,6 @@ function update() {
   if (collapsed) {
     dx = 0;
     dy = 0;
-    snake.unshift(head);
-    snake.pop();
     isGameOver = true;
   }
   if (head.x < 0) {
@@ -147,30 +169,9 @@ function gameLoop() {
 window.requestAnimationFrame(gameLoop);
 
 window.addEventListener("keydown", function onKeyDown(event) {
+  inputBuffer.push(event.key);
   if (isGameOver) {
     return;
-  }
-  switch (event.key) {
-    case "ArrowDown": {
-      dx = 0;
-      dy = dy === -10 ? dx : 10;
-      break;
-    }
-    case "ArrowUp": {
-      dx = 0;
-      dy = dy === 10 ? dy : -10;
-      break;
-    }
-    case "ArrowRight": {
-      dx = dx === -10 ? dx : 10;
-      dy = 0;
-      break;
-    }
-    case "ArrowLeft": {
-      dx = dx === 10 ? dx : -10;
-      dy = 0;
-      break;
-    }
   }
 });
 
