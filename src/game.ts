@@ -1,7 +1,7 @@
-const scoreElement = document.getElementById("score");
+const scoreElement = document.getElementById("score") as HTMLSpanElement;
 
-const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
+const canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
+const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
 const canvasWidth = canvas.width;
 const canvasHeight = canvas.height;
 
@@ -9,11 +9,14 @@ const boxSize = 10;
 
 const gameSpeed = 0.07; // lower value = more speed
 
-const inputBuffer = [];
+const inputBuffer: string[] = [];
 
 let score = 0;
 
-let food;
+let food = {
+  x: 0,
+  y: 0,
+};
 
 const initialSnake = [
   { x: Math.floor(canvasWidth / 2), y: Math.floor(canvasHeight / 2) },
@@ -154,7 +157,7 @@ let lastUpdateTime = 0;
 function gameLoop() {
   window.requestAnimationFrame(gameLoop);
 
-  const currentTime = new Date();
+  const currentTime = new Date().getTime();
   const secondsSinceLastUpdate = (currentTime - lastUpdateTime) / 1000;
   if (secondsSinceLastUpdate < gameSpeed) {
     return;
@@ -173,11 +176,11 @@ window.addEventListener("keydown", function onKeyDown(event) {
   }
 });
 
-function updateScore(newScore) {
+function updateScore(newScore: number) {
   score = newScore;
-  scoreElement.innerHTML = score;
+  scoreElement.innerHTML = score.toString();
 }
-const restartButton = document.getElementById("restart");
+const restartButton = document.getElementById("restart") as HTMLButtonElement;
 
 restartButton.onclick = () => {
   isGameOver = false;

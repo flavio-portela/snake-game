@@ -2,13 +2,13 @@
 <html>
   <head>
     <title>Snake - by Flavio 🦄</title>
-    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="src/style.css" />
   </head>
   <body>
     <h3>Score: <span id="score">0</span></h3>
     <canvas id="gameCanvas" width="500" height="500"></canvas>
-
     <button id="restart">Restart</button>
-    <script src="game.js"></script>
+    <script type="module" src="src/game.ts"></script>
+    <script type="module" src="src/socket.ts"></script>
   </body>
 </html>

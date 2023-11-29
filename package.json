@@ -1,0 +1,18 @@
+{
+  "name": "snake",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io-client": "^4.7.2",
+    "typescript": "^5.3.2",
+    "vite": "^5.0.3"
+  }
+}
