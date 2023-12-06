@@ -7,8 +7,6 @@ const canvasHeight = canvas.height;
 
 const boxSize = 10;
 
-const gameSpeed = 0.07; // lower value = more speed
-
 const inputBuffer: string[] = [];
 
 let score: number = 0;
@@ -155,20 +153,20 @@ function draw() {
 }
 
 let lastUpdateTime = 0;
+const gameSpeed = 0.07; // lower value = more speed
 function gameLoop() {
   window.requestAnimationFrame(gameLoop);
-
   const currentTime = new Date().getTime();
   const secondsSinceLastUpdate = (currentTime - lastUpdateTime) / 1000;
   if (secondsSinceLastUpdate < gameSpeed) {
     return;
   }
-  lastUpdateTime = currentTime;
   update();
   draw();
+  lastUpdateTime = currentTime;
 }
 
-window.requestAnimationFrame(gameLoop);
+gameLoop();
 
 window.addEventListener("keydown", function onKeyDown(event) {
   inputBuffer.push(event.key);
@@ -182,7 +180,8 @@ function updateScore() {
 }
 const restartButton = document.getElementById("restart") as HTMLButtonElement;
 
-restartButton.onclick = () => {
+restartButton.onclick = (e) => {
+  e.preventDefault();
   isGameOver = false;
   snake = [...initialSnake];
   positionFood();
